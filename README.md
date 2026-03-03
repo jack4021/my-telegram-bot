@@ -152,6 +152,10 @@ The project includes `railway.toml` for one-click deployment on Railway:
 1. `railway init`
 2. `railway up`
 
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
 ## Linting
 
 This project uses [Ruff](https://docs.astral.sh/ruff/) for linting and formatting:
