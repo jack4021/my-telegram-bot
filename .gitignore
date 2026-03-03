@@ -1,0 +1,17 @@
+# Environment
+.env
+.venv/
+
+# IDE
+.idea/
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Ruff
+.ruff_cache/
+
+# Prompts
+assistant_prompt.md
+roleplay_prompt.md
