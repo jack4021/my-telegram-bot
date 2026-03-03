@@ -82,12 +82,6 @@ A Telegram bot that routes user messages to LLMs via the OpenRouter API. Built w
 python app.py
 ```
 
-Or use the provided shell script:
-
-```bash
-./start.sh
-```
-
 ## Available AI Models
 
 The bot supports the following models (configured in `bot/utils/config.py`):
