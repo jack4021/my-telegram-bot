@@ -5,6 +5,7 @@ from telegram.ext import ContextTypes
 from bot.utils.config import API_KEY, PROMPTS, MAX_HISTORY_MESSAGES
 from bot.utils.state import get_lock, get_history, get_plugins, get_model, last_usage
 from bot.utils.logger import logger
+from bot.utils.image_provider import get_image_provider
 
 
 def load_prompts():
@@ -46,6 +47,13 @@ async def message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not update.message or not update.message.text:
         return
 
+    current_mode = context.user_data.get("mode", "assistant")
+    logger.debug("Current mode: %s", current_mode)
+
+    if current_mode == "image":
+        await handle_image_mode(update, context)
+        return
+
     async with get_lock(user_id):
         logger.debug("Received message from user %d: %s", user_id, update.message.text)
         history = get_history(user_id)
@@ -58,9 +66,6 @@ async def message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         try:
             plugins = get_plugins(user_id)
             logger.debug("plugins: %s", plugins)
-
-            current_mode = context.user_data.get("mode", "assistant")
-            logger.debug("Current mode: %s", current_mode)
 
             prompts = load_prompts()
             system_prompt = safe_nested_get(
@@ -106,3 +111,31 @@ async def message(update: Update, context: ContextTypes.DEFAULT_TYPE):
             await update.message.reply_text(chunk, parse_mode="Markdown")
         except Exception:
             await update.message.reply_text(chunk)
+
+
+async def handle_image_mode(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """Handle image generation mode."""
+    prompt = update.message.text
+
+    msg = await update.message.reply_text("🎨 Generating image...")
+
+    try:
+        image_provider = get_image_provider()
+        image_urls = await image_provider.send(prompt)
+    except Exception as e:
+        logger.error("Image generation error: %s", e)
+        await msg.edit_text("⚠️ Image generation failed. Try again in a moment.")
+        return
+
+    for url in image_urls:
+        try:
+            await context.bot.send_photo(
+                chat_id=update.effective_chat.id,
+                photo=url,
+            )
+        except Exception as e:
+            logger.error("Failed to send image: %s", e)
+            await msg.edit_text(f"⚠️ Failed to send image. View it here: {url}")
+            return
+
+    await msg.delete()

@@ -8,6 +8,7 @@ from .utils.config import (
 )
 from .utils.logger import logger
 from .utils.state import conversations, get_model, get_lock, get_history, last_usage
+from .utils.image_provider import get_image_provider
 from .handlers.commands import (
     start,
     status_cmd,
@@ -16,6 +17,8 @@ from .handlers.commands import (
     tokens_cmd,
     help_cmd,
     reset_cmd,
+    mode_cmd,
+    mode_callback,
 )
 from .handlers.models import models_cmd, models_callback
 from .handlers.message import message
@@ -34,6 +37,7 @@ __all__ = [
     "get_lock",
     "get_history",
     "last_usage",
+    "get_image_provider",
     "start",
     "status_cmd",
     "commands_cmd",
@@ -41,6 +45,8 @@ __all__ = [
     "tokens_cmd",
     "help_cmd",
     "reset_cmd",
+    "mode_cmd",
+    "mode_callback",
     "models_cmd",
     "models_callback",
     "message",

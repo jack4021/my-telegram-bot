@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 load_dotenv(dotenv_path="./.env")
 
 TOKEN = os.environ["TELEGRAM_BOT_API_KEY"]
+XAI_API_KEY = os.environ["XAI_API_KEY"]
 API_KEY = os.environ["OPENROUTER_API_KEY"]
 
 

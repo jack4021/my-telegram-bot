@@ -27,7 +27,7 @@ async def commands_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "/commands - List all available commands\n"
         "/help - Show how to use the bot\n"
         "/models - Show available AI models (with buttons)\n"
-        "/mode - Toggle between assistant and roleplay modes\n"
+        "/mode - Toggle between assistant, roleplay, and image modes\n"
         "/ping - Check responsiveness\n"
         "/reset - Clear conversation history\n"
         "/start - Start the bot\n"
@@ -166,7 +166,13 @@ async def mode_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 "ROLEPLAY ✅" if current_mode == "roleplay" else "ROLEPLAY",
                 callback_data="mode_roleplay",
             ),
-        ]
+        ],
+        [
+            InlineKeyboardButton(
+                "🖼️ IMAGE ✅" if current_mode == "image" else "🖼️ IMAGE",
+                callback_data="mode_image",
+            ),
+        ],
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
 
@@ -187,9 +193,12 @@ async def mode_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if query.data == "mode_assistant":
         context.user_data["mode"] = "assistant"
         current_mode = "assistant"
-    else:
+    elif query.data == "mode_roleplay":
         context.user_data["mode"] = "roleplay"
         current_mode = "roleplay"
+    else:
+        context.user_data["mode"] = "image"
+        current_mode = "image"
 
     # Update buttons to reflect new state
     keyboard = [
@@ -202,7 +211,13 @@ async def mode_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 "ROLEPLAY ✅" if current_mode == "roleplay" else "ROLEPLAY",
                 callback_data="mode_roleplay",
             ),
-        ]
+        ],
+        [
+            InlineKeyboardButton(
+                "🖼️ IMAGE ✅" if current_mode == "image" else "🖼️ IMAGE",
+                callback_data="mode_image",
+            ),
+        ],
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
 
