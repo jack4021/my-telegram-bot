@@ -5,8 +5,9 @@ A Telegram bot that routes user messages to LLMs via the OpenRouter API. Built w
 ## Features
 
 - **AI Conversations**: Send any message and receive AI-powered responses via OpenRouter
-- **Multiple Models**: Choose from 17+ available AI models
-- **Two Modes**: Switch between `assistant` and `roleplay` modes with different personalities
+- **Multiple Models**: Choose from 16 available AI models
+- **Three Modes**: Switch between `assistant`, `roleplay`, and `image` modes
+- **Image Generation**: Generate images from text prompts in image mode
 - **Conversation History**: Maintains context with up to 80 messages per user
 - **Token Tracking**: View prompt, completion, and total token usage after each response
 - **Web Search**: Toggle web search integration for real-time information
@@ -20,7 +21,7 @@ A Telegram bot that routes user messages to LLMs via the OpenRouter API. Built w
 | `/help` | Show how to use the bot |
 | `/commands` | List all available commands |
 | `/models` | Show available AI models (select via buttons) |
-| `/mode` | Toggle between assistant and roleplay modes |
+| `/mode` | Toggle between assistant, roleplay, and image modes |
 | `/ping` | Check bot responsiveness |
 | `/reset` | Clear conversation history |
 | `/status` | Show current model, mode, and history count |
@@ -75,6 +76,7 @@ A Telegram bot that routes user messages to LLMs via the OpenRouter API. Built w
 | `TELEGRAM_BOT_API_KEY` | Your Telegram bot token from @BotFather |
 | `OPENROUTER_API_KEY` | Your OpenRouter API key |
 | `MY_TELEGRAM_ID` | Your numeric Telegram user ID (to authorize yourself) |
+| `XAI_API_KEY` | Your x.ai API key (required for image generation mode) |
 
 ## Running the Bot
 

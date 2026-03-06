@@ -4,6 +4,7 @@
 
 Python 3.11+ Telegram bot that routes user messages to LLMs via the OpenRouter API.
 Uses `python-telegram-bot` for the Telegram interface and `openrouter` for AI completions.
+Supports three modes: assistant, roleplay, and image generation.
 All handlers are async. State is held in-memory (no database).
 
 ## Repository Structure
@@ -20,6 +21,7 @@ bot/
   utils/
     auth.py             # authorized_only decorator
     config.py           # Environment variables, constants, allowed models list
+    image_provider.py   # Image generation via x.ai SDK
     logger.py           # Logging setup
     state.py            # In-memory dicts for conversations, models, locks, plugins
 .env.example           # Example environment variables file
@@ -37,6 +39,7 @@ railway.toml           # Railway deployment configuration
 | `TELEGRAM_BOT_API_KEY` | Telegram Bot API token             |
 | `OPENROUTER_API_KEY`   | OpenRouter API key                 |
 | `MY_TELEGRAM_ID`       | Numeric Telegram user ID (owner)   |
+| `XAI_API_KEY`          | x.ai API key (for image generation)|
 
 These are read via `os.environ[]` in `bot/utils/config.py` and will raise
 `KeyError` at import time if missing. Never commit `.env` files or secrets.
@@ -206,10 +209,11 @@ Target Python 3.11+. Use modern built-in generic types for annotations:
 - Key constants:
   - `TOKEN` - Telegram bot API key
   - `API_KEY` - OpenRouter API key
+  - `XAI_API_KEY` - x.ai API key (for image generation)
   - `DEFAULT_MODEL` - Default AI model (x-ai/grok-4.1-fast)
   - `MAX_HISTORY_MESSAGES` - Max conversation history per user (80)
   - `PROMPTS` - System prompts loaded from assistant_prompt.md and roleplay_prompt.md
-  - `ALLOWED_MODELS` - List of permitted AI models
+  - `ALLOWED_MODELS` - List of permitted AI models (16 total)
   - `ALLOWED_USER_IDS` - Set of authorized user IDs
 - To add a new model, append it to `ALLOWED_MODELS`.
 - To add a new allowed user, add their numeric ID to `ALLOWED_USER_IDS`
