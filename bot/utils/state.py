@@ -1,5 +1,5 @@
 import asyncio
-from .config import DEFAULT_MODEL
+from .config import DEFAULT_MODEL, IMAGE_MODEL
 
 conversations: dict[int, list[dict]] = {}
 last_usage: dict[int, dict] = {}
@@ -44,7 +44,7 @@ def is_web_search_enabled(user_id: int) -> bool:
 
 
 def get_image_model(user_id: int) -> str:
-    return image_models.get(user_id, "normal")
+    return image_models.get(user_id, IMAGE_MODEL)
 
 
 def get_image_quality(user_id: int) -> str:

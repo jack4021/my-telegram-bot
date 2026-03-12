@@ -34,12 +34,12 @@ railway.toml           # Railway deployment configuration
 
 ## Environment Variables (Required)
 
-| Variable               | Description                        |
-|------------------------|------------------------------------|
-| `TELEGRAM_BOT_API_KEY` | Telegram Bot API token             |
-| `OPENROUTER_API_KEY`   | OpenRouter API key                 |
-| `MY_TELEGRAM_ID`       | Numeric Telegram user ID (owner)   |
-| `XAI_API_KEY`          | x.ai API key (for image generation)|
+| Variable               | Description                         |
+|------------------------|-------------------------------------|
+| `TELEGRAM_BOT_API_KEY` | Telegram Bot API token              |
+| `OPENROUTER_API_KEY`   | OpenRouter API key                  |
+| `MY_TELEGRAM_ID`       | Numeric Telegram user ID (owner)    |
+| `XAI_API_KEY`          | x.ai API key (for image generation) |
 
 These are read via `os.environ[]` in `bot/utils/config.py` and will raise
 `KeyError` at import time if missing. Never commit `.env` files or secrets.
@@ -207,16 +207,16 @@ Target Python 3.11+. Use modern built-in generic types for annotations:
 
 - All configuration lives in `bot/utils/config.py`.
 - Key constants:
-  - `TOKEN` - Telegram bot API key
-  - `API_KEY` - OpenRouter API key
-  - `XAI_API_KEY` - x.ai API key (for image generation)
-  - `DEFAULT_MODEL` - Default AI model (x-ai/grok-4.1-fast)
-  - `MAX_HISTORY_MESSAGES` - Max conversation history per user (80)
-  - `PROMPTS` - System prompts loaded from assistant_prompt.md and roleplay_prompt.md
-  - `ALLOWED_MODELS` - List of permitted AI models (16 total)
-  - `ALLOWED_USER_IDS` - Set of authorized user IDs
-  - `IMAGE_MODEL` - Image generation model (default: grok-imagine-image)
-  - `IMAGE_RESOLUTION` - Image resolution (default: 1k)
+    - `TOKEN` - Telegram bot API key
+    - `API_KEY` - OpenRouter API key
+    - `XAI_API_KEY` - x.ai API key (for image generation)
+    - `DEFAULT_MODEL` - Default AI model (x-ai/grok-4.1-fast)
+    - `MAX_HISTORY_MESSAGES` - Max conversation history per user (80)
+    - `PROMPTS` - System prompts loaded from assistant_prompt.md and roleplay_prompt.md
+    - `ALLOWED_MODELS` - List of permitted AI models (16 total)
+    - `ALLOWED_USER_IDS` - Set of authorized user IDs
+    - `IMAGE_MODEL` - Image generation model `normal` or `pro` (default: `pro`)
+    - `IMAGE_RESOLUTION` - Image resolution (default: 1k)
 - To add a new model, append it to `ALLOWED_MODELS`.
 - To add a new allowed user, add their numeric ID to `ALLOWED_USER_IDS`
   (or set up another env var).
@@ -227,11 +227,11 @@ Target Python 3.11+. Use modern built-in generic types for annotations:
 - State is keyed by `user_id: int`.
 - State is not persisted -- it resets on bot restart.
 - Key state variables:
-  - `conversations` - Per-user message history
-  - `user_models` - Per-user selected model
-  - `last_usage` - Per-user API token usage tracking
-  - `_user_locks` - Per-user async locks for serializing requests
-  - `plugin_settings` - Per-user plugin enabled states (e.g., web search)
+    - `conversations` - Per-user message history
+    - `user_models` - Per-user selected model
+    - `last_usage` - Per-user API token usage tracking
+    - `_user_locks` - Per-user async locks for serializing requests
+    - `plugin_settings` - Per-user plugin enabled states (e.g., web search)
 - Helper functions: `get_lock()`, `get_model()`, `get_history()`, `set_web_search()`, `is_web_search_enabled()`
 
 ### Git Conventions

@@ -38,7 +38,7 @@ ALLOWED_MODELS = [
     "nousresearch/hermes-4-70b",
 ]
 
-IMAGE_MODEL = os.getenv("IMAGE_MODEL", "grok-imagine-image")
+IMAGE_MODEL = os.getenv("IMAGE_MODEL", "pro")
 IMAGE_RESOLUTION = os.getenv("IMAGE_RESOLUTION", "1k")
 
 IMAGE_MODELS = {

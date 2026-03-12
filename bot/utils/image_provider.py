@@ -11,7 +11,7 @@ class ImageProvider:
             self,
             prompt: str,
             num_of_images: int = 1,
-            model_key: str = "normal",
+            model_key: str = IMAGE_MODEL,
             resolution: str = "1k",
     ) -> list[str]:
         model = IMAGE_MODELS.get(model_key, IMAGE_MODEL)
