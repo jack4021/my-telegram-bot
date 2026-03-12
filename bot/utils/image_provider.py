@@ -1,5 +1,5 @@
 from bot.utils.logger import logger
-from bot.utils.config import XAI_API_KEY
+from bot.utils.config import XAI_API_KEY, IMAGE_MODEL, IMAGE_RESOLUTION
 
 import xai_sdk
 
@@ -11,15 +11,16 @@ class ImageProvider:
         client = xai_sdk.Client(api_key=XAI_API_KEY)
         responses = client.image.sample_batch(
             prompt=prompt,
-            model="grok-imagine-image",
+            model=IMAGE_MODEL,
             n=num_of_images,
             image_format="url",
-            resolution="1k",
+            resolution=IMAGE_RESOLUTION,  # type: ignore[arg-type]
         )
         urls = [response.url for _, response in enumerate(responses)]
         logger.info(
-            "Generated %d image(s) with prompt: %s -> %s",
+            "Generated %d image(s) with '%s' model and prompt: %s -> %s",
             num_of_images,
+            IMAGE_MODEL,
             prompt,
             ", ".join(urls),
         )

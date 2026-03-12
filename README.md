@@ -77,6 +77,8 @@ A Telegram bot that routes user messages to LLMs via the OpenRouter API. Built w
 | `OPENROUTER_API_KEY` | Your OpenRouter API key |
 | `MY_TELEGRAM_ID` | Your numeric Telegram user ID (to authorize yourself) |
 | `XAI_API_KEY` | Your x.ai API key (required for image generation mode) |
+| `IMAGE_MODEL` | Image generation model (default: `grok-imagine-image`) |
+| `IMAGE_RESOLUTION` | Image resolution (default: `1k`) |
 
 ## Running the Bot
 

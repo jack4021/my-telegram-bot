@@ -20,7 +20,7 @@ def _load_prompts() -> list[dict]:
 
 
 PROMPTS = _load_prompts()
-DEFAULT_MODEL = "x-ai/grok-4.1-fast"
+DEFAULT_MODEL = "inception/mercury-2"
 MAX_HISTORY_MESSAGES = 80
 
 ALLOWED_USER_IDS: set[int] = {
@@ -28,32 +28,15 @@ ALLOWED_USER_IDS: set[int] = {
 }
 
 ALLOWED_MODELS = [
-    "anthropic/claude-haiku-4.5",
-    "deepseek/deepseek-v3.2",
-    "ibm-granite/granite-4.0-h-micro",
-    "minimax/minimax-m2.5",
-    "mistralai/ministral-14b-2512",
-    "mistralai/mistral-nemo",
-    "mistralai/mistral-small-3.2-24b-instruct",
-    "mistralai/mistral-small-24b-instruct-2501",
-    "mistralai/mistral-small-creative",
-    "moonshotai/kimi-k2.5",
-    "nousresearch/hermes-4-70b",
-    "openai/gpt-5-nano",
-    "qwen/qwen3.5-397b-a17b",
     "x-ai/grok-4.1-fast",
+    "inception/mercury-2",
+    "anthropic/claude-haiku-4.5",
+    "openai/gpt-5-nano",
     "xiaomi/mimo-v2-flash",
-    "z-ai/glm-5",
-    # ---------------------------------------------
-    # "alibaba/tongyi-deepresearch-30b-a3b",
-    # "gryphe/mythomax-l2-13b",
-    # "meta-llama/llama-3.3-70b-instruct",
-    # "meta-llama/llama-4-maverick",
-    # "meta-llama/llama-4-scout",
-    # "nousresearch/hermes-4-405b",
-    # "nvidia/nemotron-nano-9b-v2",
-    # "nvidia/nemotron-nano-12b-v2-vl",
-    # "nvidia/nemotron-3-nano-30b-a3b",
-    # "qwen/qwen3.5-plus-02-15",
-    # "sao10k/l3-lunaris-8b",
+    "deepseek/deepseek-v3.2",
+    "mistralai/mistral-nemo",
+    "nousresearch/hermes-4-70b",
 ]
+
+IMAGE_MODEL = os.getenv("IMAGE_MODEL", "grok-imagine-image")
+IMAGE_RESOLUTION = os.getenv("IMAGE_RESOLUTION", "1k")

@@ -2,3 +2,4 @@ openrouter
 python-telegram-bot
 dotenv
 xai_sdk
+dotenv

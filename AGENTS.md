@@ -215,6 +215,8 @@ Target Python 3.11+. Use modern built-in generic types for annotations:
   - `PROMPTS` - System prompts loaded from assistant_prompt.md and roleplay_prompt.md
   - `ALLOWED_MODELS` - List of permitted AI models (16 total)
   - `ALLOWED_USER_IDS` - Set of authorized user IDs
+  - `IMAGE_MODEL` - Image generation model (default: grok-imagine-image)
+  - `IMAGE_RESOLUTION` - Image resolution (default: 1k)
 - To add a new model, append it to `ALLOWED_MODELS`.
 - To add a new allowed user, add their numeric ID to `ALLOWED_USER_IDS`
   (or set up another env var).
