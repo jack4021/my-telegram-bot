@@ -15,7 +15,7 @@ bot/
   __init__.py           # Re-exports all public symbols via __all__
   bot.py                # Bot initialization, handler registration, run_polling()
   handlers/
-    commands.py         # Command handlers (/start, /help, /reset, /status, /websearch, /mode, /ping, /tokens, /commands, etc.)
+    commands.py         # Command handlers (/start, /help, /reset, /status, /websearch, /mode, /ping, /tokens, /commands, /imgmode, etc.)
     message.py          # Text message handler (OpenRouter API call)
     models.py           # /model, /models commands and callbacks
   utils/
@@ -210,10 +210,10 @@ Target Python 3.11+. Use modern built-in generic types for annotations:
     - `TOKEN` - Telegram bot API key
     - `API_KEY` - OpenRouter API key
     - `XAI_API_KEY` - x.ai API key (for image generation)
-    - `DEFAULT_MODEL` - Default AI model (x-ai/grok-4.1-fast)
+    - `DEFAULT_MODEL` - Default AI model (inception/mercury-2)
     - `MAX_HISTORY_MESSAGES` - Max conversation history per user (80)
     - `PROMPTS` - System prompts loaded from assistant_prompt.md and roleplay_prompt.md
-    - `ALLOWED_MODELS` - List of permitted AI models (16 total)
+    - `ALLOWED_MODELS` - List of permitted AI models (8 total)
     - `ALLOWED_USER_IDS` - Set of authorized user IDs
     - `IMAGE_MODEL` - Image generation model `normal` or `pro` (default: `pro`)
     - `IMAGE_RESOLUTION` - Image resolution (default: 1k)

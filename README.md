@@ -5,7 +5,7 @@ A Telegram bot that routes user messages to LLMs via the OpenRouter API. Built w
 ## Features
 
 - **AI Conversations**: Send any message and receive AI-powered responses via OpenRouter
-- **Multiple Models**: Choose from 16 available AI models
+- **Multiple Models**: Choose from 8 available AI models
 - **Three Modes**: Switch between `assistant`, `roleplay`, and `image` modes
 - **Image Generation**: Generate images from text prompts in image mode
 - **Conversation History**: Maintains context with up to 80 messages per user
@@ -20,6 +20,7 @@ A Telegram bot that routes user messages to LLMs via the OpenRouter API. Built w
 | `/start` | Start the bot |
 | `/help` | Show how to use the bot |
 | `/commands` | List all available commands |
+| `/imgmode` | Image generation settings (model & quality) |
 | `/models` | Show available AI models (select via buttons) |
 | `/mode` | Toggle between assistant, roleplay, and image modes |
 | `/ping` | Check bot responsiveness |
@@ -77,7 +78,7 @@ A Telegram bot that routes user messages to LLMs via the OpenRouter API. Built w
 | `OPENROUTER_API_KEY` | Your OpenRouter API key |
 | `MY_TELEGRAM_ID` | Your numeric Telegram user ID (to authorize yourself) |
 | `XAI_API_KEY` | Your x.ai API key (required for image generation mode) |
-| `IMAGE_MODEL` | Image generation model (default: `grok-imagine-image`) |
+| `IMAGE_MODEL` | Image generation model (`normal` or `pro`, default: `pro`) |
 | `IMAGE_RESOLUTION` | Image resolution (default: `1k`) |
 
 ## Running the Bot
@@ -90,24 +91,16 @@ python app.py
 
 The bot supports the following models (configured in `bot/utils/config.py`):
 
-- anthropic/claude-haiku-4.5
-- deepseek/deepseek-v3.2
-- ibm-granite/granite-4.0-h-micro
-- minimax/minimax-m2.5
-- mistralai/ministral-14b-2512
-- mistralai/mistral-nemo
-- mistralai/mistral-small-3.2-24b-instruct
-- mistralai/mistral-small-24b-instruct-2501
-- mistralai/mistral-small-creative
-- moonshotai/kimi-k2.5
-- nousresearch/hermes-4-70b
-- openai/gpt-5-nano
-- qwen/qwen3.5-397b-a17b
 - x-ai/grok-4.1-fast
+- inception/mercury-2
+- anthropic/claude-haiku-4.5
+- openai/gpt-5-nano
 - xiaomi/mimo-v2-flash
-- z-ai/glm-5
+- deepseek/deepseek-v3.2
+- mistralai/mistral-nemo
+- nousresearch/hermes-4-70b
 
-Default model: `x-ai/grok-4.1-fast`
+Default model: `inception/mercury-2`
 
 ## Project Structure
 
@@ -124,6 +117,7 @@ my-telegram-bot/
 │   └── utils/
 │       ├── auth.py             # Authorization decorator
 │       ├── config.py           # Configuration & constants
+│       ├── image_provider.py   # Image generation via x.ai
 │       ├── logger.py           # Logging setup
 │       └── state.py            # In-memory state management
 ├── assistant_prompt.md        # System prompt for assistant mode
