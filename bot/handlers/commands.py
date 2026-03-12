@@ -7,6 +7,10 @@ from bot.utils.state import (
     last_usage,
     set_web_search,
     is_web_search_enabled,
+    get_image_model,
+    get_image_quality,
+    set_image_model,
+    set_image_quality,
 )
 from bot.utils.config import MAX_HISTORY_MESSAGES
 
@@ -26,6 +30,7 @@ async def commands_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "*Available commands:*\n\n"
         "/commands - List all available commands\n"
         "/help - Show how to use the bot\n"
+        "/imgmode - Image generation settings (model & quality)\n"
         "/models - Show available AI models (with buttons)\n"
         "/mode - Toggle between assistant, roleplay, and image modes\n"
         "/ping - Check responsiveness\n"
@@ -223,6 +228,93 @@ async def mode_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     await query.edit_message_text(
         f"🎭 Current mode: *{current_mode.capitalize()}*",
+        parse_mode="Markdown",
+        reply_markup=reply_markup,
+    )
+
+
+# noinspection PyUnusedLocal
+async def imgmode_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """Show image mode settings with inline buttons."""
+    user_id = update.effective_user.id
+    current_model = get_image_model(user_id)
+    current_quality = get_image_quality(user_id)
+
+    keyboard = [
+        [
+            InlineKeyboardButton(
+                "✅ NORMAL" if current_model == "normal" else "NORMAL",
+                callback_data="imgmode_model_normal",
+            ),
+            InlineKeyboardButton(
+                "✅ PRO" if current_model == "pro" else "PRO",
+                callback_data="imgmode_model_pro",
+            ),
+        ],
+        [
+            InlineKeyboardButton(
+                "✅ 1K" if current_quality == "1k" else "1K",
+                callback_data="imgmode_quality_1k",
+            ),
+            InlineKeyboardButton(
+                "✅ 2K" if current_quality == "2k" else "2K",
+                callback_data="imgmode_quality_2k",
+            ),
+        ],
+    ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+
+    await update.message.reply_text(
+        f"🖼️ Image Settings:\n• Model: *{current_model.upper()}*\n• Quality: *{current_quality.upper()}*",
+        parse_mode="Markdown",
+        reply_markup=reply_markup,
+    )
+
+
+# noinspection PyUnusedLocal
+async def imgmode_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """Handle inline button presses for image mode settings."""
+    query = update.callback_query
+    user_id = query.from_user.id
+
+    await query.answer()
+
+    if query.data.startswith("imgmode_model_"):
+        model = query.data.split("_")[-1]
+        set_image_model(user_id, model)
+    elif query.data.startswith("imgmode_quality_"):
+        quality = query.data.split("_")[-1]
+        set_image_quality(user_id, quality)
+
+    current_model = get_image_model(user_id)
+    current_quality = get_image_quality(user_id)
+
+    keyboard = [
+        [
+            InlineKeyboardButton(
+                "✅ NORMAL" if current_model == "normal" else "NORMAL",
+                callback_data="imgmode_model_normal",
+            ),
+            InlineKeyboardButton(
+                "✅ PRO" if current_model == "pro" else "PRO",
+                callback_data="imgmode_model_pro",
+            ),
+        ],
+        [
+            InlineKeyboardButton(
+                "✅ 1K" if current_quality == "1k" else "1K",
+                callback_data="imgmode_quality_1k",
+            ),
+            InlineKeyboardButton(
+                "✅ 2K" if current_quality == "2k" else "2K",
+                callback_data="imgmode_quality_2k",
+            ),
+        ],
+    ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+
+    await query.edit_message_text(
+        f"🖼️ Image Settings:\n• Model: *{current_model.upper()}*\n• Quality: *{current_quality.upper()}*",
         parse_mode="Markdown",
         reply_markup=reply_markup,
     )

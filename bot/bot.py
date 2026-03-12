@@ -18,6 +18,8 @@ from .handlers.commands import (
     websearch_callback,
     mode_cmd,
     mode_callback,
+    imgmode_cmd,
+    imgmode_callback,
 )
 from .handlers.models import models_cmd, models_callback
 from .handlers.message import message
@@ -68,6 +70,10 @@ def run_bot():
     app.add_handler(CommandHandler("mode", authorized_only(mode_cmd)))
     app.add_handler(
         CallbackQueryHandler(authorized_only(mode_callback), pattern="^mode_")
+    )
+    app.add_handler(CommandHandler("imgmode", authorized_only(imgmode_cmd)))
+    app.add_handler(
+        CallbackQueryHandler(authorized_only(imgmode_callback), pattern="^imgmode_")
     )
     app.add_handler(
         MessageHandler(filters.TEXT & ~filters.COMMAND, authorized_only(message))

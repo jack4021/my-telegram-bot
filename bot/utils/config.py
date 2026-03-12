@@ -40,3 +40,9 @@ ALLOWED_MODELS = [
 
 IMAGE_MODEL = os.getenv("IMAGE_MODEL", "grok-imagine-image")
 IMAGE_RESOLUTION = os.getenv("IMAGE_RESOLUTION", "1k")
+
+IMAGE_MODELS = {
+    "normal": "grok-imagine-image",
+    "pro": "grok-imagine-image-pro",
+}
+IMAGE_QUALITIES = ["1k", "2k"]

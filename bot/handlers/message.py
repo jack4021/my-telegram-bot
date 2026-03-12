@@ -3,7 +3,15 @@ from telegram import Update
 from telegram.ext import ContextTypes
 
 from bot.utils.config import API_KEY, PROMPTS, MAX_HISTORY_MESSAGES
-from bot.utils.state import get_lock, get_history, get_plugins, get_model, last_usage
+from bot.utils.state import (
+    get_lock,
+    get_history,
+    get_plugins,
+    get_model,
+    last_usage,
+    get_image_model,
+    get_image_quality,
+)
 from bot.utils.logger import logger
 from bot.utils.image_provider import get_image_provider
 
@@ -115,13 +123,18 @@ async def message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def handle_image_mode(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Handle image generation mode."""
+    user_id = update.effective_user.id
     prompt = update.message.text
+    model_key = get_image_model(user_id)
+    quality = get_image_quality(user_id)
 
     msg = await update.message.reply_text("🎨 Generating image...")
 
     try:
         image_provider = get_image_provider()
-        image_urls = await image_provider.send(prompt)
+        image_urls = await image_provider.send(
+            prompt, model_key=model_key, resolution=quality
+        )
     except Exception as e:
         logger.error("Image generation error: %s", e)
         await msg.edit_text("⚠️ Image generation failed. Try again in a moment.")

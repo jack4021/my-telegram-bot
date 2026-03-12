@@ -19,6 +19,8 @@ from .handlers.commands import (
     reset_cmd,
     mode_cmd,
     mode_callback,
+    imgmode_cmd,
+    imgmode_callback,
 )
 from .handlers.models import models_cmd, models_callback
 from .handlers.message import message
@@ -47,6 +49,8 @@ __all__ = [
     "reset_cmd",
     "mode_cmd",
     "mode_callback",
+    "imgmode_cmd",
+    "imgmode_callback",
     "models_cmd",
     "models_callback",
     "message",
