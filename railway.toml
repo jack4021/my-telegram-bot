@@ -1,2 +1,2 @@
 [deploy]
-startCommand = "python app.py"
+startCommand = "uv run python app.py"
