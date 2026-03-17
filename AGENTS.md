@@ -17,7 +17,7 @@ bot/
   handlers/
     commands.py         # Command handlers (/start, /help, /reset, /status, /websearch, /mode, /ping, /tokens, /commands, /imgmode, etc.)
     message.py          # Text message handler (OpenRouter API call)
-    models.py           # /model, /models commands and callbacks
+    models.py           # /models command and callbacks
   utils/
     auth.py             # authorized_only decorator
     config.py           # Environment variables, constants, allowed models list
