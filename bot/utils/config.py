@@ -19,24 +19,22 @@ def _load_prompts() -> list[dict]:
     return [{"default": {"system": {"assistant": assistant, "roleplay": roleplay}}}]
 
 
+ALLOWED_MODELS = [
+    "x-ai/grok-4.1-fast",
+    "x-ai/grok-4.20-beta",
+    "anthropic/claude-haiku-4.5",
+    "inception/mercury-2",
+    "deepseek/deepseek-v3.2",
+    "nousresearch/hermes-4-70b",
+]
+
 PROMPTS = _load_prompts()
-DEFAULT_MODEL = "inception/mercury-2"
+DEFAULT_MODEL = ALLOWED_MODELS[0]
 MAX_HISTORY_MESSAGES = 80
 
 ALLOWED_USER_IDS: set[int] = {
     int(os.environ["MY_TELEGRAM_ID"]),
 }
-
-ALLOWED_MODELS = [
-    "x-ai/grok-4.1-fast",
-    "inception/mercury-2",
-    "anthropic/claude-haiku-4.5",
-    "openai/gpt-5-nano",
-    "xiaomi/mimo-v2-flash",
-    "deepseek/deepseek-v3.2",
-    "mistralai/mistral-nemo",
-    "nousresearch/hermes-4-70b",
-]
 
 IMAGE_MODEL = os.getenv("IMAGE_MODEL", "pro")
 IMAGE_RESOLUTION = os.getenv("IMAGE_RESOLUTION", "1k")
